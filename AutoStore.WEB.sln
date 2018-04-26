@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoStore.WEB", "AutoStore.WEB\AutoStore.WEB.csproj", "{175A608C-1EDF-4F04-A4B0-D6951F7B2011}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoStore.DAL", "AutoStore.DAL\AutoStore.DAL.csproj", "{1FE114E2-D4E8-4063-A299-816450344020}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{175A608C-1EDF-4F04-A4B0-D6951F7B2011}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{175A608C-1EDF-4F04-A4B0-D6951F7B2011}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{175A608C-1EDF-4F04-A4B0-D6951F7B2011}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FE114E2-D4E8-4063-A299-816450344020}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FE114E2-D4E8-4063-A299-816450344020}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FE114E2-D4E8-4063-A299-816450344020}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FE114E2-D4E8-4063-A299-816450344020}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
