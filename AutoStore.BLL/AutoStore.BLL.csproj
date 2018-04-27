@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1FE114E2-D4E8-4063-A299-816450344020}</ProjectGuid>
+    <ProjectGuid>{1CD35BD6-93C5-4A3E-A229-23FB819B4B70}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AutoStore.DAL</RootNamespace>
-    <AssemblyName>AutoStore.DAL</AssemblyName>
+    <RootNamespace>AutoStore.BLL</RootNamespace>
+    <AssemblyName>AutoStore.BLL</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -60,22 +60,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EF\DetailContext.cs" />
-    <Compile Include="Entities\ApplicationRole.cs" />
-    <Compile Include="Entities\ApplicationUser.cs" />
-    <Compile Include="Entities\AutoDetail.cs" />
-    <Compile Include="Entities\ClientProfile.cs" />
-    <Compile Include="Entities\Order.cs" />
-    <Compile Include="Identity\ApplicationRoleManager.cs" />
-    <Compile Include="Identity\ApplicationUserManager.cs" />
-    <Compile Include="Interfaces\IClientManager.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="DTO\AutoDetailDTO.cs" />
+    <Compile Include="DTO\OrderDTO.cs" />
+    <Compile Include="DTO\UserDTO.cs" />
+    <Compile Include="Infrastructure\OperationDetails.cs" />
+    <Compile Include="Infrastructure\ServiceModule.cs" />
+    <Compile Include="Infrastructure\ValidationException.cs" />
+    <Compile Include="Interfaces\IOrderService.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\AutoDetailRepositories.cs" />
-    <Compile Include="Repositories\ClientManager.cs" />
-    <Compile Include="Repositories\EFUnitOfWork.cs" />
-    <Compile Include="Repositories\OrderRepository.cs" />
+    <Compile Include="Services\OrderService.cs" />
+    <Compile Include="Services\UserService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AutoStore.DAL\AutoStore.DAL.csproj">
+      <Project>{1fe114e2-d4e8-4063-a299-816450344020}</Project>
+      <Name>AutoStore.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
