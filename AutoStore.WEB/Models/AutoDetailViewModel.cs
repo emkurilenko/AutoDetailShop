@@ -1,23 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace AutoStore.DAL.Entities
+namespace AutoStore.WEB.Models
 {
-    public class AutoDetail
+    public class AutoDetailViewModel
     {
-        
         public int Id { get; set; }
-        //артикул детали
         public string Article { get; set; }
         public string Brend { get; set; }
-        //цена
         public double Price { get; set; }
-        //тип
         public string Name { get; set; }
-
-        public virtual ICollection<Order> Orders { get; set; }
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AutoStore.BLL.Infrastructure
 {
-    class ServiceModule: NinjectModule
+    public class ServiceModule: NinjectModule
     {
         private string connection;
         public ServiceModule(string conn)

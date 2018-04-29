@@ -10,7 +10,7 @@ namespace AutoStore.DAL.Entities
     public class Order
     {
         public int Id { get; set; }
-        public decimal Sum { get; set; }
+        public double Sum { get; set; }
 
         public DateTime Date { get; set; }
 

@@ -8,12 +8,11 @@ namespace AutoStore.BLL.DTO
 {
     public class AutoDetailDTO
     {
-        public int IdAutoDetail { get; set; }
+        public int Id { get; set; }
         public string Article { get; set; }
-        public string NameDetail { get; set; }
-        public string Company { get; set; }
-        public decimal Price { get; set; }
-        public string Type { get; set; }
+        public string Brend { get; set; }
+        public double Price { get; set; }
+        public string Name { get; set; }
 
     }
 }

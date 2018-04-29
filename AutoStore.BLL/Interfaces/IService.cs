@@ -3,12 +3,13 @@ using AutoStore.BLL.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace AutoStore.BLL.Interfaces
 {
-    public interface IOrderService
+    public interface IService : IDisposable
     {
         OperationDetails MakeOrder(OrderDTO orderDTO);
         AutoDetailDTO GetAutoDetail(int? id);
@@ -20,6 +21,10 @@ namespace AutoStore.BLL.Interfaces
         OperationDetails EditDetail(AutoDetailDTO autoDetailDTO);
         OperationDetails DeleteDetail(int id);
 
+        Task<OperationDetails> Create(UserDTO userDto);
+        Task<ClaimsIdentity> Authenticate(UserDTO userDto);
+        Task SetInitialData(UserDTO adminDto, List<string> roles);
+        UserDTO GetCurrentUser();
 
         void Dispose();
 

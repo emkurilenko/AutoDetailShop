@@ -1,4 +1,8 @@
-﻿using System;
+﻿using AutoMapper;
+using AutoStore.BLL.DTO;
+using AutoStore.BLL.Interfaces;
+using AutoStore.WEB.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +12,21 @@ namespace AutoStore.WEB.Controllers
 {
     public class HomeController : Controller
     {
+        IService service;
+
+        public HomeController(IService serv)
+        {
+            service = serv;
+        }
+
+
         public ActionResult Index()
         {
-            return View();
+            IEnumerable<AutoDetailDTO> autoDetails = service.GetAutoDetails();
+            Mapper.Reset();
+            Mapper.Initialize(cfg => cfg.CreateMap<AutoDetailDTO, AutoDetailViewModel>());
+            var details = Mapper.Map <IEnumerable<AutoDetailDTO>,  List<AutoDetailViewModel>>(autoDetails);
+            return View(details);
         }
 
         public ActionResult About()
