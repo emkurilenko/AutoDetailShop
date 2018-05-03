@@ -17,6 +17,14 @@ namespace AutoStore.WEB.Controllers
         public HomeController(IService serv)
         {
             service = serv;
+            //service.CreateDetail(new AutoDetailDTO
+            //{
+            //    Article = "9333029",
+            //    Name = "Ступицы колес",
+            //    Brend = "Tech-as",
+            //    Price = 124.5
+            //}
+
         }
 
 

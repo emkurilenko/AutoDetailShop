@@ -12,10 +12,15 @@ namespace AutoStore.DAL.EF
     public class DetailContext : IdentityDbContext<ApplicationUser>
     {
 
+        public DetailContext(string connectionStirng) : base(connectionStirng) { }
+        public DetailContext()
+        {
+
+        }
+
+
         public DbSet<ClientProfile> ClientProfiles { get; set; }
         public DbSet<AutoDetail> AutoDetails { get; set; }
         public DbSet<Order> Orders { get; set; }
-
-        public DetailContext(string connectionStirng) : base(connectionStirng) { }
     }
 }

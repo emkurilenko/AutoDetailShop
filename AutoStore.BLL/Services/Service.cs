@@ -153,7 +153,7 @@ namespace AutoStore.BLL.Services
         {
             ClaimsIdentity claim = null;
 
-            ApplicationUser user = await Database.UserManager.FindAsync(userDto.Email, userDto.Password);
+            ApplicationUser user = await Database.UserManager.FindAsync(userDto.UserName, userDto.Password);
 
             if (user != null)
                 claim = await Database.UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
@@ -165,12 +165,12 @@ namespace AutoStore.BLL.Services
             ApplicationUser user = await Database.UserManager.FindByEmailAsync(userDto.Email);
             if (user == null)
             {
-                user = new ApplicationUser { Email = userDto.Email, UserName = userDto.Email };
+                user = new ApplicationUser { Email = userDto.Email, UserName = userDto.UserName };
                 var result = await Database.UserManager.CreateAsync(user, userDto.Password);
                 if (result.Errors.Count() > 0)
                     return new OperationDetails(false, result.Errors.FirstOrDefault(), "");
                 await Database.UserManager.AddToRoleAsync(user.Id, userDto.Role);
-                ClientProfile clientProfile = new ClientProfile { Id = user.Id, Address = userDto.Address, Name = userDto.Name };
+                ClientProfile clientProfile = new ClientProfile { Id = user.Id, Address = userDto.Address, Name = userDto.Name, UserName = userDto.UserName };
                 Database.ClientManager.Create(clientProfile);
                 await Database.SaveAsync();
 
@@ -184,13 +184,13 @@ namespace AutoStore.BLL.Services
 
         public UserDTO GetCurrentUser()
         {
-            //ApplicationUser appUser = Database.UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            ApplicationUser appUser = null;
+            ApplicationUser appUser = Database.UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
             if (appUser == null)
                 return null;
             else
             {
-                var user = Database.ClientManager.Get(appUser.Id);
+                var user = Database.ClientManager.Find(u => u.Id == appUser.Id);
+                
                 return new UserDTO
                 {
                     Address = user.Address,
@@ -214,6 +214,25 @@ namespace AutoStore.BLL.Services
                 }
             }
             await Create(adminDto);
+        }
+
+        public async Task<OperationDetails> EditUser(UserDTO userDTO)
+        {
+                ApplicationUser user = await Database.UserManager.FindByIdAsync(System.Web.HttpContext.Current.User.Identity.GetUserId());
+                if (user != null)
+                {
+                    user.UserName = userDTO.UserName;
+                    user.GetClientProfile.Name = userDTO.Name;
+                    user.Email = userDTO.Email;
+                    user.GetClientProfile.Address = userDTO.Address;
+                    IdentityResult result = await Database.UserManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                    {
+                        return new OperationDetails(true, "Профиль успешно изменен!", "");
+                    }else
+                        return new OperationDetails(false, "Ошибка изменения профиля!", "");
+                }else
+                    return new OperationDetails(false, "Пользователь не найден","");
         }
 }
 }

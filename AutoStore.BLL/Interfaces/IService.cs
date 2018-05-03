@@ -22,11 +22,9 @@ namespace AutoStore.BLL.Interfaces
         OperationDetails DeleteDetail(int id);
 
         Task<OperationDetails> Create(UserDTO userDto);
+        Task<OperationDetails> EditUser(UserDTO userDTO);
         Task<ClaimsIdentity> Authenticate(UserDTO userDto);
         Task SetInitialData(UserDTO adminDto, List<string> roles);
         UserDTO GetCurrentUser();
-
-        void Dispose();
-
     }
 }

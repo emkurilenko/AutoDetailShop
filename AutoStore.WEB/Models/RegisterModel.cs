@@ -9,6 +9,7 @@ namespace AutoStore.WEB.Models
     public class RegisterModel
     {
         [Required]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         [Required]
         [DataType(DataType.Password)]
@@ -19,5 +20,9 @@ namespace AutoStore.WEB.Models
         public string ConfirmPassword { get; set; }
         [Required]
         public string Name { get; set; }
+        [Required]
+        public string Address { get; set; }
+        [Required]
+        public string UserName { get; set; }
     }
 }

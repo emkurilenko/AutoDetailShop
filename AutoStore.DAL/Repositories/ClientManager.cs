@@ -4,6 +4,7 @@ using AutoStore.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,6 +25,11 @@ namespace AutoStore.DAL.Repositories
             db.SaveChanges();
         }
 
+        public void UpdateUser(ClientProfile item)
+        {
+            db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+        }
+
         public void Dispose()
         {
             db.Dispose();
@@ -32,6 +38,11 @@ namespace AutoStore.DAL.Repositories
         public ClientProfile Get(string id)
         {
             return db.ClientProfiles.Find(id);
+        }
+
+        public ClientProfile Find(Expression<Func<ClientProfile, bool>> match)
+        {
+            return db.Set<ClientProfile>().SingleOrDefault(match);
         }
     }
 }

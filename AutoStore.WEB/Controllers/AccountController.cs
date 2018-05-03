@@ -1,4 +1,5 @@
-﻿using AutoStore.BLL.DTO;
+﻿using AutoMapper;
+using AutoStore.BLL.DTO;
 using AutoStore.BLL.Infrastructure;
 using AutoStore.BLL.Interfaces;
 using AutoStore.WEB.Models;
@@ -16,6 +17,8 @@ namespace AutoStore.WEB.Controllers
 {
     public class AccountController : Controller
     {
+
+
         private IService Service
         {
             get
@@ -31,6 +34,7 @@ namespace AutoStore.WEB.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
+        
 
         public ActionResult Login()
         {
@@ -41,10 +45,10 @@ namespace AutoStore.WEB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginModel model)
         {
-            await SetInitialDataAsync();
+         //   await SetInitialDataAsync();
             if (ModelState.IsValid)
             {
-                UserDTO userDto = new UserDTO { Email = model.Email, Password = model.Password };
+                UserDTO userDto = new UserDTO { UserName = model.UserName, Password = model.Password };
                 ClaimsIdentity claim = await Service.Authenticate(userDto);
                 if (claim == null)
                 {
@@ -78,7 +82,7 @@ namespace AutoStore.WEB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterModel model)
         {
-            await SetInitialDataAsync();
+//            await SetInitialDataAsync();
             if (ModelState.IsValid)
             {
                 UserDTO userDto = new UserDTO
@@ -86,6 +90,8 @@ namespace AutoStore.WEB.Controllers
                     Email = model.Email,
                     Password = model.Password,
                     Name = model.Name,
+                    Address = model.Address,
+                    UserName = model.UserName,
                     Role = "user"
                 };
                 OperationDetails operationDetails = await Service.Create(userDto);
@@ -96,16 +102,92 @@ namespace AutoStore.WEB.Controllers
             }
             return View(model);
         }
+
         private async Task SetInitialDataAsync()
         {
             await Service.SetInitialData(new UserDTO
             {
                 Email = "kurilenko.e.m@outlook.com",
-                UserName = "emkurilenko",
                 Password = "123qwe",
                 Name = "Евгений Куриленко",
+                UserName = "emkurilenko",
+                Address = "Novopolotsk",
                 Role = "admin",
             }, new List<string> { "user", "admin" });
+        }
+
+        public ActionResult GetName()
+        {
+            var user = Service.GetCurrentUser();
+            if (user != null)
+            {
+                ViewBag.Name = user.Name;
+            }
+            else
+            {
+                ViewBag.Name = "Гость";
+
+            }
+            return PartialView();
+        }
+
+        [Authorize]
+        public ActionResult Index()
+        {
+            var user = Service.GetCurrentUser();
+            return View(user);
+        }
+
+        [Authorize]
+        public ActionResult _PartialUserOrders()
+        {
+            var user = Service.GetCurrentUser();
+            var orderDtos = Service.GetOrders().Where(o => o.ClientProfileId == user.IdUser);
+            Mapper.Reset();
+            Mapper.Initialize(cfg => cfg.CreateMap<OrderDTO, OrderViewModel>());
+            var orders = Mapper.Map<IEnumerable<OrderDTO>, List<OrderViewModel>>(orderDtos);
+            return PartialView(orders);
+        }
+
+        [Authorize]
+        public ActionResult Account()
+        {
+            var _user = Service.GetCurrentUser();
+            Mapper.Reset();
+            Mapper.Initialize(cfg => cfg.CreateMap<UserDTO, UserViewModel>());
+            var user = Mapper.Map<UserDTO, UserViewModel>(_user);
+            return View(user);
+        }
+        [Authorize]
+        public ActionResult EditUser()
+        {
+            var _user = Service.GetCurrentUser();
+            Mapper.Reset();
+            Mapper.Initialize(cfg => cfg.CreateMap<UserDTO, EditUsetModel>());
+            var user = Mapper.Map<UserDTO, EditUsetModel>(_user);
+            return View(user);
+        }
+        
+        [HttpPost]
+        [Authorize]
+        public async Task<ActionResult> EditUser(EditUsetModel user)
+        {
+            if (ModelState.IsValid)
+            {
+                UserDTO userDTO = new UserDTO
+                {
+                    Name = user.Name,
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    Address = user.Address
+                };
+                OperationDetails operationDetails = await Service.EditUser(userDTO);
+                if (operationDetails.Succedeed)
+                    return RedirectToAction("Account", "Account");
+                else
+                    ModelState.AddModelError(operationDetails.Property, operationDetails.Message);
+            }
+            return View(user);
         }
     }
 }

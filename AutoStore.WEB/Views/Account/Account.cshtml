@@ -1,0 +1,28 @@
+﻿@model AutoStore.WEB.Models.UserViewModel
+
+@{
+    ViewBag.Title = "Account";
+}
+<h2>Мой профиль</h2>
+<div class="row">
+    <div class="col-md-5">
+        <table class="table">
+            <tbody>
+                <tr><td>Логин</td><td>@Model.UserName</td></tr>
+                <tr><td>Имя</td><td>@Model.Name</td></tr>
+                <tr><td>Email</td><td>@Model.Email</td></tr>
+                <tr><td>Адрес проживания:</td><td>@Model.Address</td></tr>
+            </tbody>
+        </table>
+        @Html.ActionLink("Редактировать", "EditUser")
+    </div>
+</div>
+
+@*<div class="col-md-6">
+    @{Html.RenderAction("_PartialUserOrders");}
+</div*@>
+
+@*<form action="/Account/UpdateUser" method="get">
+    <input type="hidden" name="Id" value="@Model." />
+    <input type="submit" value="Редактировать пользователя" />
+</form>*@

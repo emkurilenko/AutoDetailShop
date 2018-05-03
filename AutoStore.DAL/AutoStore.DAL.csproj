@@ -68,6 +68,19 @@
     <Compile Include="Interfaces\IClientManager.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Migrations\201805021142554_MigrateDB.cs" />
+    <Compile Include="Migrations\201805021142554_MigrateDB.Designer.cs">
+      <DependentUpon>201805021142554_MigrateDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805021211170_MigrateDB1.cs" />
+    <Compile Include="Migrations\201805021211170_MigrateDB1.Designer.cs">
+      <DependentUpon>201805021211170_MigrateDB1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805021613515_MigrateDB2.cs" />
+    <Compile Include="Migrations\201805021613515_MigrateDB2.Designer.cs">
+      <DependentUpon>201805021613515_MigrateDB2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AutoDetailRepositories.cs" />
     <Compile Include="Repositories\ClientManager.cs" />
@@ -77,6 +90,17 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201805021142554_MigrateDB.resx">
+      <DependentUpon>201805021142554_MigrateDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805021211170_MigrateDB1.resx">
+      <DependentUpon>201805021211170_MigrateDB1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805021613515_MigrateDB2.resx">
+      <DependentUpon>201805021613515_MigrateDB2.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
