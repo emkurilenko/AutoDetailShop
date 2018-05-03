@@ -14,6 +14,7 @@ namespace AutoStore.WEB.Controllers
     public class OrderController : Controller
     {
         IService service;
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
         public OrderController(IService serv)
         {
@@ -39,6 +40,7 @@ namespace AutoStore.WEB.Controllers
                 if (id != null)
                 {
                     result = service.DeleteOrder(id.Value);
+                    logger.Info(result.Message);
                     return Redirect(Request.UrlReferrer.ToString());
                 }
                 else
@@ -63,7 +65,8 @@ namespace AutoStore.WEB.Controllers
                 Date = DateTime.Now,
                 Sum = service.GetAutoDetails().FirstOrDefault(c => c.Id == id).Price
             };
-            service.MakeOrder(order);
+            OperationDetails result = service.MakeOrder(order);
+            logger.Info(result.Message);
             return RedirectToAction("Index", "Home");
         }
 

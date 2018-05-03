@@ -15,8 +15,11 @@ namespace AutoStore.WEB
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         protected void Application_Start()
         {
+            logger.Info("Application Start");
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
@@ -28,5 +31,14 @@ namespace AutoStore.WEB
 
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }
+
+        public void Init() => logger.Info("Application Init");
+
+        public void Dispose() => logger.Info("Application Dispose");
+
+        protected void Application_Error() => logger.Info("Application Error");
+
+        protected void Application_End() => logger.Info("Application End");
+
     }
 }

@@ -1,0 +1,3 @@
+2018-05-04 01:36:04.0189 AutoStore.WEB.MvcApplication.Application_Start Info: Application Start  RuntimeMethodInfo.UnsafeInvokeInternal => RuntimeMethodHandle.InvokeMethod => MvcApplication.Application_Start
+2018-05-04 01:38:11.9332 AutoStore.WEB.Controllers.OrderController.Buy Info: Заказ успешно выполнен  ActionMethodDispatcher.Execute => <no type>.lambda_method => OrderController.Buy
+2018-05-04 01:39:16.5934 AutoStore.WEB.Controllers.OrderController.Delete Info: Заказ успешно удален!  ActionMethodDispatcher.Execute => <no type>.lambda_method => OrderController.Delete
