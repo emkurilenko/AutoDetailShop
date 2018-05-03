@@ -1,0 +1,72 @@
+﻿@model IEnumerable<AutoStore.WEB.Models.OrderViewModel>
+
+@{
+    ViewBag.Title = "ViewOrders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="modDialog" class="modal fade">
+    <div id="dialogContent" class="modal-dialog"></div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.Display("Запчасть")
+        </th>
+        <th>
+            @Html.Display("Сумма")
+        </th>
+        <th>
+            @Html.Display("Дата")
+        </th>
+        <th>
+            @Html.Display("Id user")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.ActionLink("Подробнее о детали", "../AutoDetail/Details", new { id = item.AutoDetailId }, new { @class = "info" })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.ActionLink("Пользователь","../Account/AccountDetail",new { id = item.ClientProfileId }, new { @class = "info" })
+        </td>
+        <td>
+            @using (Html.BeginForm("Delete", "order", FormMethod.Post, new { }))
+        {
+            <input type="hidden" value="@item.Id" name="id" />
+            <input type="submit" value="Delete" class="btn btn-link" />
+    }
+        </td>
+    </tr>
+    }
+
+</table>
+
+
+
+@section scripts{
+    <script>
+        $(function () {
+            $.ajaxSetup({ cache: false });
+            $(".info").click(function (e) {
+
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#modDialog').modal('show');
+                });
+            });
+        })
+    </script>
+}

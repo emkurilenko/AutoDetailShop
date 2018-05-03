@@ -2,13 +2,14 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div id="modDialog" class="modal fade">
+    <div id="dialogContent" class="modal-dialog"></div>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -24,28 +25,64 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th></th>
+        <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Article)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Brend)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Article)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brend)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Подробнее", "../AutoDetail/Details", new { id = item.Id }, new { @class = "info" })
+                @using (Html.BeginForm("Buy", "Order", FormMethod.Post, new { }))
+                {
+                    <input type="hidden" value="@item.Id" name="id" />
+                    <input type="submit" value="Buy" class="btn btn-link" />
+                }
+            </td>
+            <td>
+                @if (User.IsInRole("admin"))
+                {
+                    using (Html.BeginForm("Delete", "AutoDetail", FormMethod.Post))
+                    {
+                        <input type="hidden" value="@item.Id" name="id" />
+                        <input type="submit" value="Delete" class="btn btn-link" />
+                    }
+                    using (Html.BeginForm("Edit", "AutoDetail", FormMethod.Get))
+                    {
+                        <input type="hidden" value="@item.Id" name="id" />
+                        <input type="submit" value="Edit" class="btn btn-link" />
+                    }
+                }
+            </td>
+        </tr>
+    }
 </table>
+
+
+@section scripts{
+    <script>
+        $(function () {
+            $.ajaxSetup({ cache: false });
+            $(".info").click(function (e) {
+
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#modDialog').modal('show');
+                });
+            });
+        })
+    </script>
+}

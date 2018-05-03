@@ -1,0 +1,23 @@
+﻿@model AutoStore.BLL.DTO.AutoDetailDTO
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal" area-hidden="true">X </button>
+        <h4>Деталь</h4>
+    </div>
+    <div class="modal-body">
+        <dl class="dl-horizontal">
+            <dt>Артикл модели:</dt>
+            <dd>@Html.DisplayFor(model => model.Article)</dd>
+
+            <dt>Бренд</dt>
+            <dd>@Html.DisplayFor(model => model.Brend)</dd>
+
+            <dt>Назначени</dt>
+            <dd>@Html.DisplayFor(model => model.Name)</dd>
+
+            <dt>Цена</dt>
+            <dd>@Html.DisplayFor(model => model.Price)</dd>
+        </dl>
+    </div>
+</div>

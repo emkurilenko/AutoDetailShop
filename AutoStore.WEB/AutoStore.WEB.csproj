@@ -199,7 +199,6 @@
     <Compile Include="Controllers\AutoDetailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
-    <Compile Include="Models\EditUsetModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -255,11 +254,15 @@
     <Content Include="Views\Account\GetName.cshtml" />
     <Content Include="Views\Account\Account.cshtml" />
     <Content Include="Views\Account\EditUser.cshtml" />
-    <Content Include="Views\AutoDetail\CreateDetail.cshtml" />
+    <Content Include="Views\AutoDetail\Create.cshtml" />
+    <Content Include="Views\AutoDetail\Edit.cshtml" />
+    <Content Include="Views\AutoDetail\Details.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Account\_PartialUserOrders.cshtml" />
+    <Content Include="Views\Account\AccountDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -138,6 +138,8 @@ namespace AutoStore.WEB.Controllers
             return View(user);
         }
 
+
+
         [Authorize]
         public ActionResult _PartialUserOrders()
         {
@@ -158,36 +160,46 @@ namespace AutoStore.WEB.Controllers
             var user = Mapper.Map<UserDTO, UserViewModel>(_user);
             return View(user);
         }
+
+        [Authorize(Roles = "admin")]
+        public ActionResult AccountDetail(string id)
+        {
+            var _user = Service.GetUser(id);
+            return View(_user);
+        }
+
         [Authorize]
         public ActionResult EditUser()
         {
             var _user = Service.GetCurrentUser();
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap<UserDTO, EditUsetModel>());
-            var user = Mapper.Map<UserDTO, EditUsetModel>(_user);
+            Mapper.Initialize(cfg => cfg.CreateMap<UserDTO, UserViewModel>());
+            var user = Mapper.Map<UserDTO, UserViewModel>(_user);
             return View(user);
         }
         
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult> EditUser(EditUsetModel user)
+        public async Task<ActionResult> EditUser(UserViewModel user)
         {
-            if (ModelState.IsValid)
+            var cur_user = Service.GetCurrentUser();
+            if (cur_user != null)
             {
-                UserDTO userDTO = new UserDTO
+                if (ModelState.IsValid)
                 {
-                    Name = user.Name,
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    Address = user.Address
-                };
-                OperationDetails operationDetails = await Service.EditUser(userDTO);
-                if (operationDetails.Succedeed)
-                    return RedirectToAction("Account", "Account");
+                    Mapper.Reset();
+                    Mapper.Initialize(cfg => cfg.CreateMap<UserViewModel, UserDTO>());
+                    var _user = Mapper.Map<UserViewModel, UserDTO>(user);
+                    OperationDetails operationDetails = await Service.EditUser(_user);
+                    if (operationDetails.Succedeed)
+                        return RedirectToAction("Account", "Account");
+                    else
+                        ModelState.AddModelError(operationDetails.Property, operationDetails.Message);
+                }
                 else
-                    ModelState.AddModelError(operationDetails.Property, operationDetails.Message);
+                    return View(user);              
             }
-            return View(user);
+            return RedirectToAction("Login","Account");
         }
     }
 }

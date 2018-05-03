@@ -1,0 +1,20 @@
+﻿@model AutoStore.BLL.DTO.UserDTO
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal" area-hidden="true">X </button>
+        <h4>Профиль пользователя</h4>
+    </div>
+    <div class="modal-body">
+        <dl class="dl-horizontal">
+            <dt>Имя</dt>
+            <dd>@Html.DisplayFor(model => model.Name)</dd>
+            <dt>Никнейм</dt>
+            <dd>@Html.DisplayFor(model => model.UserName)</dd>
+            <dt>Адрес</dt>
+            <dd>@Html.DisplayFor(model => model.Address)</dd>
+            <dt>Email</dt>
+            <dd>@Html.DisplayFor(model => model.Email)</dd>
+        </dl>
+    </div>
+</div>

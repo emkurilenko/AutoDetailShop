@@ -1,11 +1,13 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AutoStore</title>
-    @Styles.Render("~/Content/css")
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -13,28 +15,30 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Магазин Автозапчастей</a>
+                    <a class="navbar-brand" href="../Home/Index">Магазин Автозапчастей</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
                     @if (User.IsInRole("admin"))
-    {
-                <li>@Html.ActionLink("Заказы", "Index", "Order")</li>
-                <li>@Html.ActionLink("+", "CreateDetail", "AutoDetail")</li>
-}
+                    {
+                        <li>@Html.ActionLink("Заказы", "Index", "Order")</li>
+                        <li>@Html.ActionLink("Добавить деталь", "Create", "AutoDetail")</li>
+                    }
                 </ul>
-                 @Html.Partial("_LoginPartial")
+                @Html.Partial("_LoginPartial")
             </div>
         </nav>
-       
-    </header>
-    <div class="container">
-        <div class="row">
 
-        </div>
+    </header>
+    <div class="container body-content">
         @RenderBody()
+       
+        @*<footer>
+            <p>&copy; @DateTime.Now.Year - Магазин автозапчастей</p>
+        </footer>*@
     </div>
 
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>

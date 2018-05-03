@@ -26,5 +26,6 @@ namespace AutoStore.BLL.Interfaces
         Task<ClaimsIdentity> Authenticate(UserDTO userDto);
         Task SetInitialData(UserDTO adminDto, List<string> roles);
         UserDTO GetCurrentUser();
+        UserDTO GetUser(string id);
     }
 }

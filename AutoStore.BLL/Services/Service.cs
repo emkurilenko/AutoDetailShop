@@ -82,6 +82,7 @@ namespace AutoStore.BLL.Services
             Mapper.Initialize(cfg => cfg.CreateMap<Order, OrderDTO>());
             return Mapper.Map<IEnumerable<Order>, List<OrderDTO>>(Database.Orders.GetAll());
         }
+
         public OperationDetails CreateDetail(AutoDetailDTO autoDetailDTO)
         {
             if(autoDetailDTO != null)
@@ -200,6 +201,27 @@ namespace AutoStore.BLL.Services
                     IdUser = user.Id
                 };
             }
+        }
+
+        public UserDTO GetUser(string id)
+        {
+            ApplicationUser appUser = Database.UserManager.FindById(id);
+            if (appUser == null)
+                return null;
+            else
+            {
+                var user = Database.ClientManager.Find(u => u.Id == appUser.Id);
+
+                return new UserDTO
+                {
+                    Address = user.Address,
+                    Name = user.Name,
+                    Email = user.ApplicationUser.Email,
+                    UserName = user.ApplicationUser.UserName,
+                    IdUser = user.Id
+                };
+            }
+
         }
 
         public async Task SetInitialData(UserDTO adminDto, List<string> roles)
