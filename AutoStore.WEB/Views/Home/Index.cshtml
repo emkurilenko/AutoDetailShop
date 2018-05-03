@@ -9,8 +9,24 @@
     <div id="dialogContent" class="modal-dialog"></div>
 </div>
 
+<input type="text" name="name" id="search" />
+<input type='button' id="submit" value='Поиск' />
 
-<table class="table">
+<div id="results"></div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#submit').click(function (e) {
+            e.preventDefault();
+            var name = $('#search').val();
+            name=encodeURIComponent(name);
+            $('#results').load('@Url.Action("DetailSearch", "Home")?name=' + name);
+            $('#table-a').hide();
+        });
+    });
+</script>
+
+<table id="table-a" class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Article)

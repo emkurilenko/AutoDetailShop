@@ -50,5 +50,24 @@ namespace AutoStore.WEB.Controllers
 
             return View();
         }
+
+        public ActionResult DetailSearch(string name)
+        {
+            try
+            {
+                if (!name.Equals(""))
+                {
+                    var _details = service.GetAutoDetails().Where(a => a.Article.Contains(name)).ToList();
+                    Mapper.Reset();
+                    Mapper.Initialize(cfg => cfg.CreateMap<AutoDetailDTO, AutoDetailViewModel>());
+                    var details = Mapper.Map<IEnumerable<AutoDetailDTO>, List<AutoDetailViewModel>>(_details);
+                    return PartialView(details);
+                }
+                return PartialView();
+            }catch(Exception e)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
     }
 }

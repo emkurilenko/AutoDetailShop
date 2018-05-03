@@ -260,6 +260,7 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Account\_PartialUserOrders.cshtml" />
     <Content Include="Views\Account\AccountDetail.cshtml" />
+    <Content Include="Views\Home\DetailSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

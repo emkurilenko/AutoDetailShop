@@ -1,11 +1,6 @@
 ﻿@model IEnumerable<AutoStore.WEB.Models.OrderViewModel>
 
 
-
-<div id="modDialog" class="modal fade">
-    <div id="dialogContent" class="modal-dialog"></div>
-</div>
-
 <h4>Мои заказы</h4>
 <table class="table">
     <tr>
@@ -46,18 +41,3 @@
 </table>
 
 
-@section scripts{
-<script>
-    $(function () {
-        $.ajaxSetup({ cache: false });
-        $(".info").click(function (e) {
-
-            e.preventDefault();
-            $.get(this.href, function (data) {
-                $('#dialogContent').html(data);
-                $('#modDialog').modal('show');
-            });
-        });
-    })
-</script>
-}

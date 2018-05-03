@@ -29,7 +29,6 @@ namespace AutoStore.WEB.Controllers
             return View(orders);
         }
 
-        [Authorize(Roles = "admin")]
         [HttpPost]
         public ActionResult Delete(int? id)
         {
