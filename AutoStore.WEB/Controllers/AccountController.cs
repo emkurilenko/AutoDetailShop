@@ -45,7 +45,7 @@ namespace AutoStore.WEB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginModel model)
         {
-         //   await SetInitialDataAsync();
+           // await SetInitialDataAsync();
             if (ModelState.IsValid)
             {
                 UserDTO userDto = new UserDTO { UserName = model.UserName, Password = model.Password };
@@ -82,7 +82,7 @@ namespace AutoStore.WEB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterModel model)
         {
-//            await SetInitialDataAsync();
+            //await SetInitialDataAsync();
             if (ModelState.IsValid)
             {
                 UserDTO userDto = new UserDTO
@@ -135,6 +135,10 @@ namespace AutoStore.WEB.Controllers
         public ActionResult Index()
         {
             var user = Service.GetCurrentUser();
+            if (user == null)
+            {
+                Logout();
+            }
             return View(user);
         }
 
@@ -155,8 +159,9 @@ namespace AutoStore.WEB.Controllers
         public ActionResult Account()
         {
             var _user = Service.GetCurrentUser();
-            Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap<UserDTO, UserViewModel>());
+            if (_user == null) {
+                Logout();
+            }
             var user = Mapper.Map<UserDTO, UserViewModel>(_user);
             return View(user);
         }
@@ -172,8 +177,6 @@ namespace AutoStore.WEB.Controllers
         public ActionResult EditUser()
         {
             var _user = Service.GetCurrentUser();
-            Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap<UserDTO, UserViewModel>());
             var user = Mapper.Map<UserDTO, UserViewModel>(_user);
             return View(user);
         }
@@ -187,8 +190,6 @@ namespace AutoStore.WEB.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Mapper.Reset();
-                    Mapper.Initialize(cfg => cfg.CreateMap<UserViewModel, UserDTO>());
                     var _user = Mapper.Map<UserViewModel, UserDTO>(user);
                     OperationDetails operationDetails = await Service.EditUser(_user);
                     if (operationDetails.Succedeed)

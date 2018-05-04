@@ -24,8 +24,8 @@ namespace AutoStore.WEB.Controllers
         public ActionResult Index()
         {
             var orderDtos = service.GetOrders();
-            Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap<OrderDTO, OrderViewModel>());
+            //Mapper.Reset();
+            //Mapper.Initialize(cfg => cfg.CreateMap<OrderDTO, OrderViewModel>());
             var orders = Mapper.Map<IEnumerable<OrderDTO>, List<OrderViewModel>>(orderDtos);
             return View(orders);
         }

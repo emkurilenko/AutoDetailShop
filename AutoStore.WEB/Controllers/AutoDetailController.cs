@@ -48,8 +48,8 @@ namespace AutoStore.WEB.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Mapper.Reset();
-                    Mapper.Initialize(cfg => cfg.CreateMap<AutoDetailViewModel, AutoDetailDTO>());
+                    //Mapper.Reset();
+                    //Mapper.Initialize(cfg => cfg.CreateMap<AutoDetailViewModel, AutoDetailDTO>());
                     var _detail = Mapper.Map<AutoDetailViewModel, AutoDetailDTO>(detail);
                     var result = service.CreateDetail(_detail);
                     return RedirectToAction("Index", "Home");
@@ -73,8 +73,8 @@ namespace AutoStore.WEB.Controllers
                 if (id != null)
                 {
                     var _detailDTO = service.GetAutoDetail(id.Value);
-                    Mapper.Reset();
-                    Mapper.Initialize(cfg => cfg.CreateMap<AutoDetailDTO, AutoDetailViewModel>());
+                    //Mapper.Reset();
+                    //Mapper.Initialize(cfg => cfg.CreateMap<AutoDetailDTO, AutoDetailViewModel>());
                     var _detail = Mapper.Map<AutoDetailDTO, AutoDetailViewModel>(_detailDTO);
                     if (_detail != null)
                         return View(_detail);
@@ -98,8 +98,8 @@ namespace AutoStore.WEB.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Mapper.Reset();
-                    Mapper.Initialize(cfg => cfg.CreateMap<AutoDetailViewModel, AutoDetailDTO>());
+                    //Mapper.Reset();
+                    //Mapper.Initialize(cfg => cfg.CreateMap<AutoDetailViewModel, AutoDetailDTO>());
                     var _detail = Mapper.Map<AutoDetailViewModel, AutoDetailDTO>(detailViewModel);
                     result = service.EditDetail(_detail);
                     if (result.Succedeed)

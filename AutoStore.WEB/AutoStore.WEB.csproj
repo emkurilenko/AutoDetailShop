@@ -197,6 +197,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -250,8 +251,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
@@ -288,6 +287,10 @@
     <ProjectReference Include="..\AutoStore.BLL\AutoStore.BLL.csproj">
       <Project>{1cd35bd6-93c5-4a3e-a229-23fb819b4b70}</Project>
       <Name>AutoStore.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoStore.DAL\AutoStore.DAL.csproj">
+      <Project>{1FE114E2-D4E8-4063-A299-816450344020}</Project>
+      <Name>AutoStore.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

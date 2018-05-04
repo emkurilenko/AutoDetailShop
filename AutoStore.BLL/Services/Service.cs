@@ -41,15 +41,15 @@ namespace AutoStore.BLL.Services
             var detail = Database.AutoDetails.Get(id.Value);
             if (detail == null)
                 throw new ValidationException("Делать не найдена", "");
-            Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap<AutoDetail, AutoDetailDTO>());
+            //Mapper.Reset();
+            //Mapper.Initialize(cfg => cfg.CreateMap<AutoDetail, AutoDetailDTO>());
             return Mapper.Map<AutoDetail, AutoDetailDTO>(detail);
         }
 
         public IEnumerable<AutoDetailDTO> GetAutoDetails()
         {
-            Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap<AutoDetail, AutoDetail>());
+            //Mapper.Reset();
+            //Mapper.Initialize(cfg => cfg.CreateMap<AutoDetail, AutoDetailDTO>());
             return Mapper.Map<IEnumerable<AutoDetail>, List<AutoDetailDTO>>(Database.AutoDetails.GetAll());
         }
 
@@ -78,8 +78,8 @@ namespace AutoStore.BLL.Services
 
         public IEnumerable<OrderDTO> GetOrders()
         {
-            Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap<Order, OrderDTO>());
+            //Mapper.Reset();
+            //Mapper.Initialize(cfg => cfg.CreateMap<Order, OrderDTO>());
             return Mapper.Map<IEnumerable<Order>, List<OrderDTO>>(Database.Orders.GetAll());
         }
 

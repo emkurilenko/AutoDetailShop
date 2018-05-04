@@ -31,8 +31,8 @@ namespace AutoStore.WEB.Controllers
         public ActionResult Index()
         {
             IEnumerable<AutoDetailDTO> autoDetails = service.GetAutoDetails();
-            Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap<AutoDetailDTO, AutoDetailViewModel>());
+            //Mapper.Reset();
+            //Mapper.Initialize(cfg => cfg.CreateMap<AutoDetailDTO, AutoDetailViewModel>());
             var details = Mapper.Map <IEnumerable<AutoDetailDTO>,  List<AutoDetailViewModel>>(autoDetails);
             return View(details);
         }
@@ -58,8 +58,8 @@ namespace AutoStore.WEB.Controllers
                 if (!name.Equals(""))
                 {
                     var _details = service.GetAutoDetails().Where(a => a.Article.Contains(name)).ToList();
-                    Mapper.Reset();
-                    Mapper.Initialize(cfg => cfg.CreateMap<AutoDetailDTO, AutoDetailViewModel>());
+                    //Mapper.Reset();
+                    //Mapper.Initialize(cfg => cfg.CreateMap<AutoDetailDTO, AutoDetailViewModel>());
                     var details = Mapper.Map<IEnumerable<AutoDetailDTO>, List<AutoDetailViewModel>>(_details);
                     return PartialView(details);
                 }
